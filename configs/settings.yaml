@@ -1,0 +1,16 @@
+default:
+  app:
+    name: "RAG FastAPI App"
+    version: "0.1.0"
+  rag:
+    chunk_size: 500
+    chunk_overlap: 50
+    vector_dimensions: 512
+
+development:
+  rag:
+    chunk_size: 400
+
+production:
+  rag:
+    chunk_size: 700
