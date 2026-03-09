@@ -6,11 +6,43 @@ default:
     chunk_size: 500
     chunk_overlap: 50
     vector_dimensions: 512
-
+    
+#------------------- Development --------------------
 development:
   rag:
     chunk_size: 400
 
+  llm:
+    default_provider: "ollama"
+    default_model: "gpt-oss:20b"
+    default_temperature: 0.0
+    max_tokens: 30000
+    timeout: 600
+  
+  ollama:
+    host: "http://localhost:11434"
+
+  neo4j:
+    uri: "neo4j://localhost:7474"
+    username: "neo4j"
+    database: "neo4j"
+
+#------------------- Production --------------------
 production:
   rag:
     chunk_size: 700
+
+  llm:
+    default_provider: "ollama"
+    default_model: "gpt-oss:20b"
+    default_temperature: 0.0
+    max_tokens: 30000
+    timeout: 600
+  
+  ollama:
+    host: "http://localhost:11434"
+
+  neo4j:
+    uri: "neo4j://172.52.81.53:7474"
+    username: "neo4j"
+    database: "neo4j"

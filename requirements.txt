@@ -1,0 +1,44 @@
+# Requirements for CRAG (Retrieval-Augmented Generation)
+# Core framework
+fastapi>=0.115.0
+uvicorn[standard]>=0.35.0
+celery>=5.5.0
+
+# Dependency injection and functional programming
+dependency-injector>=4.48.1
+returns>=0.22.0
+attrs>=25.3.0
+
+# LLM and RAG
+openai>=1.51.2
+langgraph>=0.2.24
+
+# Database (if using Neo4j for retrieval)
+neo4j>=5.15.0
+
+# Configuration
+Dynaconf>=3.1.12
+
+# Logging
+loguru>=0.7.2
+
+# Optional: For testing
+pytest>=8.1.1
+
+# Optional: For vector DB retrieval
+faiss-cpu>=1.7.4
+
+# Optional: For document parsing
+python-docx>=1.1.0
+PyPDF2>=3.0.1
+
+# Optional: For Docker integration
+python-dotenv>=1.0.0
+
+# Optional: For async tasks
+httpx>=0.27.0
+
+# Optional: For monitoring
+prometheus-client>=0.17.1
+
+# Add any other domain-specific packages as needed
