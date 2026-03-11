@@ -1,11 +1,26 @@
 default:
   app:
     name: "RAG FastAPI App"
-    version: "0.1.0"
+    version: "0.2.0"
   rag:
     chunk_size: 500
     chunk_overlap: 50
     vector_dimensions: 512
+  vector_backends:
+    - name: "memory"
+      type: "in_memory"
+      enabled: true
+    - name: "sqlite_local"
+      type: "sqlite"
+      enabled: true
+      path: "data/vector.db"
+  llm:
+    default_provider: "echo"
+    providers:
+      echo: {}
+      extractive: {}
+      template:
+        template: "Q: {query}\nRetrieved:\n{context}\nA: {answer_hint}"
 
 development:
   rag:

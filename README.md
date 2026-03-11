@@ -126,3 +126,60 @@ python -m app.cli query "What is this project?"
 - If `pip install` fails behind a corporate proxy, set proxy env vars before install:
   - `$env:HTTPS_PROXY = "http://user:pass@proxy:port"`
   - `$env:HTTP_PROXY = "http://user:pass@proxy:port"`
+
+
+## Multi-DB and Multi-LLM configuration
+
+This project now supports **multiple vector DB inputs** and **multiple LLM providers**, configured in `configs/settings.yaml`.
+
+### Vector backends
+Configure one or more backends under `vector_backends`:
+
+```yaml
+vector_backends:
+  - name: "memory"
+    type: "in_memory"
+    enabled: true
+  - name: "sqlite_local"
+    type: "sqlite"
+    enabled: true
+    path: "data/vector.db"
+```
+
+- `in_memory`: fast local runtime store.
+- `sqlite`: local file-backed DB input.
+
+You can target specific backends in API/CLI calls.
+
+### LLM providers
+Configure provider set under `llm.providers` and choose default via `llm.default_provider`:
+
+```yaml
+llm:
+  default_provider: "echo"
+  providers:
+    echo: {}
+    extractive: {}
+    template:
+      template: "Q: {query}\nRetrieved:\n{context}\nA: {answer_hint}"
+```
+
+Override provider per request using `llm_provider` in `/rag/query`.
+
+### API payload examples
+```json
+{
+  "document_id": "doc1",
+  "text": "your content",
+  "backends": ["memory", "sqlite_local"]
+}
+```
+
+```json
+{
+  "query": "What is ...?",
+  "top_k": 3,
+  "backends": ["sqlite_local"],
+  "llm_provider": "extractive"
+}
+```
