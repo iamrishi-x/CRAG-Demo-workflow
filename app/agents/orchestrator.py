@@ -9,8 +9,8 @@ class RagOrchestrator:
         self.retrieval_agent = retrieval_agent
         self.generation_agent = generation_agent
 
-    def answer(self, query: str, top_k: int = 3, backends: list[str] | None = None, llm_provider: str | None = None):
-        hits = self.retrieval_agent.run(query=query, top_k=top_k, backends=backends)
+    def answer(self, query: str, top_k: int = 3):
+        hits = self.retrieval_agent.run(query=query, top_k=top_k)
         contexts = [record.text for record, _ in hits]
-        answer = self.generation_agent.run(query=query, contexts=contexts, provider_name=llm_provider)
+        answer = self.generation_agent.run(query=query, contexts=contexts)
         return answer, hits

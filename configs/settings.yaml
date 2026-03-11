@@ -1,31 +1,48 @@
 default:
   app:
     name: "RAG FastAPI App"
-    version: "0.2.0"
+    version: "0.1.0"
   rag:
     chunk_size: 500
     chunk_overlap: 50
     vector_dimensions: 512
-  vector_backends:
-    - name: "memory"
-      type: "in_memory"
-      enabled: true
-    - name: "sqlite_local"
-      type: "sqlite"
-      enabled: true
-      path: "data/vector.db"
-  llm:
-    default_provider: "echo"
-    providers:
-      echo: {}
-      extractive: {}
-      template:
-        template: "Q: {query}\nRetrieved:\n{context}\nA: {answer_hint}"
-
+    
+#------------------- Development --------------------
 development:
   rag:
     chunk_size: 400
 
+  llm:
+    default_provider: "ollama"
+    default_model: "gpt-oss:20b"
+    default_temperature: 0.0
+    max_tokens: 30000
+    timeout: 600
+  
+  ollama:
+    host: "http://localhost:11434"
+
+  neo4j:
+    uri: "neo4j://localhost:7474"
+    username: "neo4j"
+    database: "neo4j"
+
+#------------------- Production --------------------
 production:
   rag:
     chunk_size: 700
+
+  llm:
+    default_provider: "ollama"
+    default_model: "gpt-oss:20b"
+    default_temperature: 0.0
+    max_tokens: 30000
+    timeout: 600
+  
+  ollama:
+    host: "http://localhost:11434"
+
+  neo4j:
+    uri: "neo4j://172.52.81.53:7474"
+    username: "neo4j"
+    database: "neo4j"
